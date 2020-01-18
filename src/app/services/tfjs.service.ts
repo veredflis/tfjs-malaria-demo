@@ -152,19 +152,21 @@ export class TfjsService {
     return await tf.loadLayersModel(url);
   }
 
-  infer(imgIds: number[]) {
+  async infer(imgIds: any[]): Promise<any> {
     let myModel: tf.LayersModel;
 
-    this.loadModelByURL("http://localhost:2222/static/mobilenet/my-model.json")
-      .then(model => {
-        myModel = model;
-        let print = myModel.predict(
-          this.dataProcess.getImageTensorsToInference(imgIds)
-        ) as any;
-        console.log(print.print());
-      })
-      .catch(err => {
-        console.log("model doesnt exists", err);
-      });
+    let model = await this.loadModelByURL(
+      "http://localhost:2222/static/mobilenet/my-model.json"
+    );
+
+    myModel = model;
+    let print = myModel.predict(
+      this.dataProcess.getImageTensorsToInference(imgIds)
+    ) as any;
+    let data = await print.data();
+    return data ? data : "Failed to infer";
+    // .catch(err => {
+    //   console.log("model doesnt exists", err);
+    // });
   }
 }

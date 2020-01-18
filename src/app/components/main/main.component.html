@@ -1,17 +1,14 @@
-<div class="train">
-  <div class="main container" *ngIf="isTrainMode()">
-    <div>
-      <input type="file" (change)="onFileSelect($event.target)" name="myfile" />
-    </div>
-    <div
-      *ngIf="tableRows && !modelFinishedTraining"
-      (click)="train()"
-      class="train-button"
-    >
-      Train Model!
-    </div>
+<div class="train container" *ngIf="isTrainMode()">
+  <div>
+    <input type="file" (change)="onFileSelect($event.target)" name="myfile" />
   </div>
-
+  <div
+    *ngIf="tableRows && !modelFinishedTraining"
+    (click)="train()"
+    class="train active-button"
+  >
+    Train Model!
+  </div>
   <div class="data container">
     <div *ngFor="let dt of tableRows; let i = index">
       <div class="trainingImages">
@@ -23,8 +20,18 @@
   </div>
 </div>
 
-<div class="infer" *ngIf="isInferMode()">
-  <div (click)="infer()" class="train-button">
-    Infer
+<div class="infer " *ngIf="isInferMode()">
+  <div class="data container">
+    <div *ngFor="let ImageSrc of inferImages; let i = index">
+      <div class="trainingImages">
+        <img
+          width="224"
+          height="224"
+          src="{{ ImageSrc }}"
+          [attr.id]="getInferenceImgId(i)"
+          (click)="inferImage(i)"
+        />
+      </div>
+    </div>
   </div>
 </div>

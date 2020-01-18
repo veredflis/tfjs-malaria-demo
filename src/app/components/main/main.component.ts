@@ -12,7 +12,9 @@ export class MainComponent implements OnInit {
   @Input() appMode: AppMode;
   private csvContent: any;
   tableRows: any;
+  inferImages: string[] = [];
   modelFinishedTraining: boolean;
+  inferenceResults: Float32Array[] = [];
   constructor(
     private tfjs: TfjsService,
     private dataProcessing: DataProcessingService
@@ -24,6 +26,19 @@ export class MainComponent implements OnInit {
     console.log("tfjs is running on: ", this.tfjs.getBackend());
   }
 
+  ngOnChanges() {
+    if (this.appMode === AppMode.Infer) {
+      if (this.inferImages.length < 1) {
+        for (let i = 0; i < 71; i++) {
+          this.inferImages.push(`assets/inference/${i}.png`);
+        }
+        console.log(this.inferImages);
+      }
+    }
+  }
+  ngOnDestroy() {
+    this.inferImages = [];
+  }
   //-------------------------------------------------------------
   // onFileLoad and onFileSelect functions opens file browser
   // and stores the selected CVS file content in csvContent variable
@@ -76,5 +91,20 @@ export class MainComponent implements OnInit {
   }
   isInferMode() {
     return this.appMode === AppMode.Infer;
+  }
+
+  inferImage(imageId) {
+    this.tfjs.infer([this.getInferenceImgId(imageId)]).then(data => {
+      console.log(data);
+      this.inferenceResults.push(data[0], data[1]);
+      alert(
+        `Uninfected: ${Math.round(data[0] * 100)}% , Infected: ${Math.round(
+          data[1] * 100
+        )}%`
+      );
+    });
+  }
+  getInferenceImgId(index) {
+    return `infer-${index}`;
   }
 }
