@@ -65,7 +65,7 @@ export class MainComponent implements OnInit {
 
   infer() {
     this.tfjs.infer([2, 3, 4, 5, 9]);
-    this.tfjs.infer([54, 55, 56, 58]);
-    this.tfjs.infer([6, 7, 8, 10]);
+    this.tfjs.infer([54, 55, 56, 58, 59]);
+    this.tfjs.infer([6, 7, 8, 10, 11]);
   }
 }
