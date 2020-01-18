@@ -1,0 +1,29 @@
+:host {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.menu {
+  display: flex;
+  width: 100%;
+  background-color: pink;
+  padding: 0.8em;
+  margin: 0;
+
+  .menu--btn {
+    color: white;
+    padding: 0.5em;
+    font-size: 1em;
+    border: none !important;
+    background-color: pink;
+    cursor: pointer;
+    margin-right: 0.5em;
+    &:hover {
+      color: purple;
+    }
+  }
+}
+
+.active {
+  color: purple !important;
+}

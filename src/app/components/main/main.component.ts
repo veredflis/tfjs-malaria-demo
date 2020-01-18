@@ -1,6 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { TfjsService } from "src/app/services/tfjs.service";
 import { DataProcessingService } from "src/app/services/data-processing.service";
+import { AppMode } from "src/app/dtos/app-mode.dto";
 
 @Component({
   selector: "app-main",
@@ -8,6 +9,7 @@ import { DataProcessingService } from "src/app/services/data-processing.service"
   styleUrls: ["./main.component.scss"]
 })
 export class MainComponent implements OnInit {
+  @Input() appMode: AppMode;
   private csvContent: any;
   tableRows: any;
   modelFinishedTraining: boolean;
@@ -67,5 +69,12 @@ export class MainComponent implements OnInit {
     this.tfjs.infer([2, 3, 4, 5, 9]);
     this.tfjs.infer([54, 55, 56, 58, 59]);
     this.tfjs.infer([6, 7, 8, 10, 11]);
+  }
+
+  isTrainMode() {
+    return this.appMode === AppMode.Train;
+  }
+  isInferMode() {
+    return this.appMode === AppMode.Infer;
   }
 }

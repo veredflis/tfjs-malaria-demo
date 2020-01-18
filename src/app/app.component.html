@@ -1,1 +1,16 @@
-<app-main></app-main>
+<div class="menu">
+  <button
+    [ngClass]="{ infer: true, 'menu--btn': true, active: !isTrainClicked }"
+    (click)="infer()"
+  >
+    Infer
+  </button>
+  <button
+    [ngClass]="{ train: true, 'menu--btn': true, active: isTrainClicked }"
+    (click)="train()"
+  >
+    Train
+  </button>
+</div>
+
+<app-main [appMode]="appMode"></app-main>
