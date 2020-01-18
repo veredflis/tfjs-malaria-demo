@@ -14,9 +14,13 @@ export class MainComponent implements OnInit {
   constructor(
     private tfjs: TfjsService,
     private dataProcessing: DataProcessingService
-  ) {}
+  ) {
+    //  tfjs.getModifiedMobilenet2();
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log("tfjs is running on: ", this.tfjs.getBackend());
+  }
 
   //-------------------------------------------------------------
   // onFileLoad and onFileSelect functions opens file browser
@@ -60,6 +64,8 @@ export class MainComponent implements OnInit {
   }
 
   infer() {
-    this.tfjs.infer([50, 40, 60]);
+    this.tfjs.infer([2, 3, 4, 5, 9]);
+    this.tfjs.infer([54, 55, 56, 58]);
+    this.tfjs.infer([6, 7, 8, 10]);
   }
 }
